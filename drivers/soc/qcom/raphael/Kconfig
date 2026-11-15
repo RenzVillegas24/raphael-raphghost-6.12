@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: GPL-2.0
+menu "Xiaomi Redmi K20 Pro (Raphael) Hardware Support"
+
+config MACH_XIAOMI_SM8150
+	bool "Xiaomi SM8150 platform support"
+	default y
+	help
+	  Support for Xiaomi smartphones based on Qualcomm SM8150 (Snapdragon 855).
+
+config MACH_XIAOMI_RAPHAEL
+	bool "Xiaomi Redmi K20 Pro / Mi 9T Pro (raphael)"
+	depends on MACH_XIAOMI_SM8150
+	default y
+	help
+	  Support for Xiaomi Redmi K20 Pro / Mi 9T Pro (codename: raphael).
+
+config REGULATOR_RAPHAEL_PD
+	bool "Raphael Power Delivery (PD) regulator support"
+	depends on MACH_XIAOMI_RAPHAEL
+	default y
+	help
+	  Enables USB-C Power Delivery and fast charging voltage regulation on Raphael.
+
+config RAPHAEL_AUDIO_TECHPACK
+	bool "Raphael Audio Techpack support"
+	depends on MACH_XIAOMI_RAPHAEL
+	default y
+	help
+	  Enables Qualcomm Audio Techpack integration including TFA98xx smart amp and WCD934x codec.
+
+config RAPHAEL_DSP_BOOT
+	bool "Raphael Audio/Wearable DSP boot control"
+	depends on MACH_XIAOMI_RAPHAEL
+	default y
+	help
+	  Sysfs control interface for booting and monitoring ADSP/WDSP firmware.
+
+config RAPHAEL_MMCX_HOLD
+	bool "Raphael MMCX voltage hold"
+	depends on MACH_XIAOMI_RAPHAEL
+	default y
+	help
+	  Ensures memory rail voltage stability during dynamic frequency scaling.
+
+config RAPHAEL_RQ_STATS
+	bool "Raphael runqueue statistics"
+	depends on MACH_XIAOMI_RAPHAEL
+	default y
+	help
+	  Collects CPU runqueue depth and scheduling load statistics.
+
+config RAPHAEL_DEVFREQ_FLOOR
+	bool "Raphael devfreq floor regulator"
+	depends on MACH_XIAOMI_RAPHAEL
+	default y
+	help
+	  Enforces minimum devfreq bandwidth and frequency floors.
+
+endmenu

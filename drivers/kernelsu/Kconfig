@@ -43,4 +43,78 @@ config KSU_X86_PATCH_SYSCALL_DISPATCHER
 	  Dynamically patch x64's hardened syscall dispatcher to support syscall hooks. This is a
 	  replacement for a kernel source code patch, and is useful for x86_64 LKM mode.
 
+menu "KernelSU - SUSFS"
+	depends on KSU
+
+config KSU_SUSFS
+	bool "KernelSU - SUSFS support"
+	default y
+	help
+	  Enable SuSFS root-hiding subsystem for KernelSU.
+
+config KSU_SUSFS_SUS_PATH
+	bool "SUSFS - Enable SUS_PATH feature"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Hide specific filesystem paths from unauthorized userspace inspection.
+
+config KSU_SUSFS_SUS_MOUNT
+	bool "SUSFS - Enable SUS_MOUNT feature"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Hide overlay and bind mounts from /proc/mounts and /proc/[pid]/mountinfo.
+
+config KSU_SUSFS_SUS_KSTAT
+	bool "SUSFS - Enable SUS_KSTAT feature"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Spoof inode attributes, stat, and statfs calls.
+
+config KSU_SUSFS_SPOOF_UNAME
+	bool "SUSFS - Enable SPOOF_UNAME feature"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Spoof kernel release and version returned by uname(2).
+
+config KSU_SUSFS_ENABLE_LOG
+	bool "SUSFS - Enable logging"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Enable kernel log buffer tracing for SuSFS events.
+
+config KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS
+	bool "SUSFS - Hide KSU and SUSFS symbols"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Filter and hide KernelSU and SuSFS symbols from kallsyms.
+
+config KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG
+	bool "SUSFS - Spoof /proc/cmdline or bootconfig"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Spoof /proc/cmdline and bootconfig contents to remove root/debug flags.
+
+config KSU_SUSFS_OPEN_REDIRECT
+	bool "SUSFS - Enable OPEN_REDIRECT feature"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Redirect file open calls from target paths to spoofed alternatives.
+
+config KSU_SUSFS_SUS_MAP
+	bool "SUSFS - Enable SUS_MAP feature"
+	depends on KSU_SUSFS
+	default y
+	help
+	  Hide memory mappings and /proc/[pid]/maps entries.
+
+endmenu
+
 endmenu
