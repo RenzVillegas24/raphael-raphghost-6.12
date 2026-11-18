@@ -107,10 +107,12 @@ void kgsl_icc_set_tag(struct kgsl_pwrctrl *pwr, int buslevel)
 #else
 void kgsl_icc_set_tag(struct kgsl_pwrctrl *pwr, int buslevel)
 {
-	if (buslevel == pwr->pwrlevels[0].bus_max)
-		icc_set_tag(pwr->icc_path, QCOM_ICC_TAG_ALWAYS | QCOM_ICC_TAG_PERF_MODE);
-	else
-		icc_set_tag(pwr->icc_path, QCOM_ICC_TAG_ALWAYS);
+	/*
+	 * 6.12 has no QCOM_ICC_TAG_PERF_MODE. The downstream KGSL driver used
+	 * it to mark the maximum bus level; keep the normal tag here until the
+	 * interconnect provider exposes an equivalent bucket.
+	 */
+	icc_set_tag(pwr->icc_path, QCOM_ICC_TAG_ALWAYS);
 }
 #endif
 

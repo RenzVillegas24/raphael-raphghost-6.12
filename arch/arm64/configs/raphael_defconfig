@@ -1739,8 +1739,10 @@ CONFIG_PREVENT_FIRMWARE_BUILD=y
 CONFIG_FW_LOADER=y
 CONFIG_FW_LOADER_PAGED_BUF=y
 CONFIG_FW_LOADER_SYSFS=y
-CONFIG_EXTRA_FIRMWARE="goodix_gt9886_cfg_f11.bin goodix_gt9886_fw_f11.bin"
-CONFIG_EXTRA_FIRMWARE_DIR="firmware/raphael"
+# The Goodix blobs are present in the vendor firmware partition; do not
+# embed them here because the source tree does not carry the binaries.
+# CONFIG_EXTRA_FIRMWARE is not set
+# CONFIG_EXTRA_FIRMWARE_DIR is not set
 CONFIG_FW_LOADER_USER_HELPER=y
 # CONFIG_FW_LOADER_USER_HELPER_FALLBACK is not set
 # CONFIG_FW_LOADER_COMPRESS is not set
@@ -4542,7 +4544,7 @@ CONFIG_SND_SOC_QCOM=y
 # CONFIG_SND_SOC_STORM is not set
 # CONFIG_SND_SOC_APQ8016_SBC is not set
 # CONFIG_SND_SOC_SC7180 is not set
-CONFIG_RAPHAEL_AUDIO_TECHPACK=y
+# CONFIG_RAPHAEL_AUDIO_TECHPACK is not set
 # CONFIG_SND_SOC_SOF_TOPLEVEL is not set
 
 #

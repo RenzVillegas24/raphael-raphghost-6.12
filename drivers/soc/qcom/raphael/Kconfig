@@ -24,9 +24,12 @@ config REGULATOR_RAPHAEL_PD
 config RAPHAEL_AUDIO_TECHPACK
 	bool "Raphael Audio Techpack support"
 	depends on MACH_XIAOMI_RAPHAEL
-	default y
+	default n
 	help
 	  Enables Qualcomm Audio Techpack integration including TFA98xx smart amp and WCD934x codec.
+
+	  The current TFA98xx source is a decompiled stub and does not build.
+	  Leave this disabled until a real driver is ported.
 
 config RAPHAEL_DSP_BOOT
 	bool "Raphael Audio/Wearable DSP boot control"

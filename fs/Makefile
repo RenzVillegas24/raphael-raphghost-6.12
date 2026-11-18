@@ -131,4 +131,5 @@ obj-$(CONFIG_VBOXSF_FS)		+= vboxsf/
 obj-$(CONFIG_ZONEFS_FS)		+= zonefs/
 obj-$(CONFIG_BPF_LSM)		+= bpf_fs_kfuncs.o
 
-obj-$(CONFIG_KSU_SUSFS)		+= susfs.o
+# The old in-tree fs/susfs.c hooks are incompatible with the KernelSU-Next
+# SUSFS LKM in drivers/kernelsu/susfs. That module is built separately.

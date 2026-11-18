@@ -84,7 +84,8 @@ ifeq ($(CONFIG_ARCH_SM6150), y)
 	subdir-ccflags-y += $(LE_EXTRA_CFLAGS)
 endif
 
-subdir-ccflags-y += -Wno-macro-redefined -Wno-error=macro-redefined
+subdir-ccflags-y += $(call cc-option,-Wno-macro-redefined) \
+		    $(call cc-option,-Wno-builtin-macro-redefined)
 ccflags-y += -Wno-error -Wno-missing-prototypes -Wno-unused-function -Wno-unused-variable -Wno-unused-but-set-variable -I$(KGSL_PATH) -I$(KGSL_PATH)/include/linux -I$(KGSL_PATH)/include -I$(KGSL_PATH)/downstream_dependencies -I$(srctree)/drivers/devfreq
 
 obj-$(CONFIG_QCOM_KGSL) += msm_kgsl.o
