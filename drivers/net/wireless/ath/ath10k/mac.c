@@ -5554,6 +5554,9 @@ static void ath10k_update_vif_offload(struct ieee80211_hw *hw,
 	}
 }
 
+static int ath10k_mac_set_fixed_rate_params(struct ath10k_vif *arvif,
+					    u8 rate, u8 nss, u8 sgi, u8 ldpc);
+
 /*
  * TODO:
  * Figure out how to handle WMI_VDEV_SUBTYPE_P2P_DEVICE,
@@ -5885,6 +5888,16 @@ static int ath10k_add_interface(struct ieee80211_hw *hw,
 			ath10k_warn(ar, "failed to recalc monitor: %d\n", ret);
 			goto err_peer_delete;
 		}
+
+		/*
+		 * AirDroid injects AWDL frames through the monitor. Use the
+		 * same legacy 54 Mbps OFDM rate as the K20 qcacld path instead
+		 * of letting firmware choose a management-rate default.
+		 */
+		ret = ath10k_mac_set_fixed_rate_params(arvif, 108, 1, 0, 0);
+		if (ret)
+			ath10k_warn(ar, "failed to set monitor fixed rate: %d\n",
+				    ret);
 	}
 
 	spin_lock_bh(&ar->htt.tx_lock);
