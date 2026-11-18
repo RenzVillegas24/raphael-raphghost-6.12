@@ -3951,6 +3951,16 @@ static void ath10k_mac_tx_h_fill_cb(struct ath10k *ar,
 		cb->flags |= ATH10K_SKB_F_RAW_TX;
 	}
 
+	/*
+	 * Monitor injection needs the raw HTT TX path. Allow it for frames
+	 * explicitly injected by mac80211 without forcing the whole device
+	 * into raw mode, which would also change RX decapsulation and normal
+	 * Wi-Fi operation.
+	 */
+	if (vif && vif->type == NL80211_IFTYPE_MONITOR &&
+	    (info->flags & IEEE80211_TX_CTL_INJECTED))
+		cb->flags |= ATH10K_SKB_F_RAW_TX;
+
 finish_cb_fill:
 	cb->vif = vif;
 	cb->txq = txq;
